@@ -734,12 +734,15 @@ def game_loop(args):
                 world.player.apply_control(control)
             else:
                 agent.update_information(world)
-
+                # world = client.load_world('Town03')
                 world.tick(clock)
                 world.render(display)
                 pygame.display.flip()
 
-                # Set new destination when target has been reached
+                for w in agent.get_local_planner().waypoints_queue:
+                    world.debug.debug.draw_string(w.get_location(), 'O', draw_shadow=False,
+                                                    color=carla.Color(r=255, g=0, b=0), life_time=0,
+                                                    persistent_lines=True)
                 if len(agent.get_local_planner().waypoints_queue) < num_min_waypoints and args.loop:
                     agent.reroute(spawn_points)
                     tot_target_reached += 1
