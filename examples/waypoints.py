@@ -4,8 +4,31 @@ import time
 client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)
 
+
+
+
 # Load the scenario
 world = client.load_world('Town03')
+
+
+# Create a recorder object
+recorder = carla.Recorder(world, './recording.log')
+
+# Start recording
+recorder.start()
+
+while True:
+    # Get the current frame from the simulation
+    frame = world.tick()
+
+    # Output the logs in the console
+    for event in frame.timestamp.frame_events:
+        if event.HasField('log_message'):
+            print(event.log_message)
+
+    # Stop the simulation after a certain amount of time
+    if frame.elapsed_seconds > 10.0:
+        break
 
 # # Get the blueprint for a Cybertruck
 cybertruck_bp = world.get_blueprint_library().find('vehicle.tesla.cybertruck')
@@ -90,6 +113,8 @@ while True:
         break
 
     vehicle.apply_control(agent.run_step())
+
+recorder.stop()
 
 # custom_controller = VehiclePIDController(cybertruck, args_lateral = {'K_P': 0, 'K_D': 0.0, 'K_I': 0}, args_longitudinal = {'K_P': 1, 'K_D': 0.0, 'K_I': 0})
 # ticks_to_track = 5
