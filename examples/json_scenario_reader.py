@@ -35,9 +35,13 @@ def main():
     world = client.get_world()
 
 
+    # Get the spectator camera
+    spectator = world.get_spectator()
+
     vehicles_list = []
     walkers_list = []
     all_id = []
+    followed_vehicle = None
 
     # Set the weather conditions
     if weather == "Sunny":
@@ -55,7 +59,6 @@ def main():
     traffic_manager = client.get_trafficmanager()
     traffic_manager.set_global_distance_to_leading_vehicle(1.0)
   
-
 
     # Spawn the specified number of cars
     try:
@@ -101,12 +104,19 @@ def main():
             batch.append(SpawnActor(blueprint, transform)
                 .then(SetAutopilot(FutureActor, True, traffic_manager.get_port()))
                 .then(SetVehicleLightState(FutureActor, light_state)))
+            
+            
 
             for response in client.apply_batch_sync(batch, True):
                 if response.error:
                     logging.error(response.error)
                 else:
                     vehicles_list.append(response.actor_id)
+                    followed_vehicle_id = response.actor_id
+            
+    
+            actor_location = world.get_actor(vehicles_list[0]).get_location()
+            spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
 
         # for i in range(num_cars):
         #     bp = world.get_blueprint_library().filter("vehicle.*")[0]
@@ -203,6 +213,8 @@ def main():
             traffic_manager.global_percentage_speed_difference(30.0)
 
         while True:
+            actor_location = world.get_actor(vehicles_list[0]).get_location()
+            spectator.set_transform(carla.Transform(actor_location+carla.Location(z=15), carla.Rotation(pitch=-90)))
             world.wait_for_tick()
 
     # Wait for the user to end the script
