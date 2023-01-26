@@ -2,7 +2,7 @@ import json
 from carla import VehicleLightState as vls
 import logging 
 import time
-
+import math
 
 
 import carla
@@ -115,8 +115,8 @@ def main():
                     followed_vehicle_id = response.actor_id
             
     
-            actor_location = world.get_actor(vehicles_list[0]).get_location()
-            spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
+            # actor_location = world.get_actor(vehicles_list[0]).get_location()
+            # spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
 
         # for i in range(num_cars):
         #     bp = world.get_blueprint_library().filter("vehicle.*")[0]
@@ -213,8 +213,15 @@ def main():
             traffic_manager.global_percentage_speed_difference(30.0)
 
         while True:
+        
+
             actor_location = world.get_actor(vehicles_list[0]).get_location()
-            spectator.set_transform(carla.Transform(actor_location+carla.Location(z=15), carla.Rotation(pitch=-90)))
+            actor_transform = world.get_actor(vehicles_list[0]).get_transform()
+            actor_yaw = actor_transform.rotation.yaw
+            spectator.set_transform(carla.Transform(actor_location+carla.Location(  z=10, 
+                                                                                    x= - 10*math.cos(math.radians(actor_yaw)), 
+                                                                                    y= - 10*math.sin(math.radians(actor_yaw))),
+                                                                                    carla.Rotation(pitch= -30 ,yaw=actor_yaw)))
             world.wait_for_tick()
 
     # Wait for the user to end the script
