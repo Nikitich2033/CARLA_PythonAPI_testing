@@ -68,10 +68,13 @@ def main():
         # Set the weather conditions
         if weather == "Sunny":
             world.set_weather(carla.WeatherParameters.ClearNoon)
+            world.set_weather(carla.WeatherParameters(cloudiness=90.0, precipitation=100.0, sun_altitude_angle=-10.0))
         elif weather == "Rain":
             world.set_weather(carla.WeatherParameters.MidRainyNoon)
         elif weather == "Thunderstorm":
-            world.set_weather(carla.WeatherParameters.HardRainNoon)
+            world.set_weather(carla.WeatherParameters(cloudiness=90.0, precipitation=100.0))
+
+        
 
         # Spawn the actor car
         # bp = world.get_blueprint_library().filter("vehicle.audi.a2")[0]
