@@ -1,0 +1,902 @@
+[
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Rainy",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Rainy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Urban"
+    },
+    {
+        "weather": "Snowy",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "City",
+        "vehicle": "Car",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Day",
+        "location": "Rural"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Car",
+        "traffic": "Heavy",
+        "emergency": "Yes",
+        "time": "Night",
+        "location": "Rural"
+    },
+    {
+        "weather": "Snowy",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Heavy",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Urban"
+    },
+    {
+        "weather": "Sunny",
+        "road": "Highway",
+        "vehicle": "Truck",
+        "traffic": "Light",
+        "emergency": "No",
+        "time": "Night",
+        "location": "Rural"
+    }
+]

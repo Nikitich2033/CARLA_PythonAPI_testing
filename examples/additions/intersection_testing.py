@@ -22,6 +22,7 @@ cybertruck = world.spawn_actor(cybertruck_bp, start_transform)
 
 map = world.get_map()
 
+#draws waypoints for a certain road 
 def draw_waypoints(waypoints, road_id=None, life_time=50.0):
 
   for waypoint in waypoints:
