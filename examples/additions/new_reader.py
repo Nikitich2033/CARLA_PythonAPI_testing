@@ -20,7 +20,7 @@ def main():
     # Initialize variables with the values from the JSON file
    
     for scenario_num in range(len(scenario_data)):
-        
+        print("new scenario: "+ str(scenario_num))
         num_scenarios = scenario_data[scenario_num]["num_scenarios"]
         weather = scenario_data[scenario_num]["weather"]
         intersection = scenario_data[scenario_num]["intersection"]
@@ -36,19 +36,19 @@ def main():
         pedestrian_cross = scenario_data[scenario_num]["pedestrian_cross"]
 
         # Print the values of the variables
-        # print("Number of scenarios: ", num_scenarios)
-        # print("Weather: ", weather)
-        # print("Intersection: ", intersection)
-        # print("Number of cars: ", num_cars)
-        # print("Road: ", road)
-        # print("Vehicle: ", vehicle)
-        # print("Traffic: ", traffic)
-        # print("Emergency: ", emergency)
-        # print("Time: ", timeOfDay)
-        # print("Location: ", location)
-        # print("Intersection: ", intersection)
-        # print("Pedestrians: ", pedestrians)
-        # print("Pedestrian cross: ", pedestrian_cross)
+        print("Number of scenarios: ", num_scenarios)
+        print("Weather: ", weather)
+        print("Intersection: ", intersection)
+        print("Number of cars: ", num_cars)
+        print("Road: ", road)
+        print("Vehicle: ", vehicle)
+        print("Traffic: ", traffic)
+        print("Emergency: ", emergency)
+        print("Time: ", timeOfDay)
+        print("Location: ", location)
+        print("Intersection: ", intersection)
+        print("Pedestrians: ", pedestrians)
+        print("Pedestrian cross: ", pedestrian_cross)
 
 
         # Connect to the CARLA server
@@ -80,71 +80,72 @@ def main():
 
         traffic_manager = client.get_trafficmanager()
         traffic_manager.set_global_distance_to_leading_vehicle(1.0)
-    
+
 
         # Spawn the specified number of cars
         try:
-            spawn_points = world.get_map().get_spawn_points()
-            number_of_spawn_points = len(spawn_points)
+            if num_cars > 0: 
+                spawn_points = world.get_map().get_spawn_points()
+                number_of_spawn_points = len(spawn_points)
 
 
-            SpawnActor = carla.command.SpawnActor
-            SetAutopilot = carla.command.SetAutopilot
-            SetVehicleLightState = carla.command.SetVehicleLightState
-            FutureActor = carla.command.FutureActor
+                SpawnActor = carla.command.SpawnActor
+                SetAutopilot = carla.command.SetAutopilot
+                SetVehicleLightState = carla.command.SetVehicleLightState
+                FutureActor = carla.command.FutureActor
 
-            blueprints = world.get_blueprint_library().filter('vehicle.*')
-            blueprints = sorted(blueprints, key=lambda bp: bp.id)
+                blueprints = world.get_blueprint_library().filter('vehicle.*')
+                blueprints = sorted(blueprints, key=lambda bp: bp.id)
 
-            if num_cars < number_of_spawn_points:
-                random.shuffle(spawn_points)
-            elif num_cars > number_of_spawn_points:
-                msg = 'requested %d vehicles, but could only find %d spawn points'
-                logging.warning(msg, num_cars, number_of_spawn_points)
-                num_cars = number_of_spawn_points
+                if num_cars < number_of_spawn_points:
+                    random.shuffle(spawn_points)
+                elif num_cars > number_of_spawn_points:
+                    msg = 'requested %d vehicles, but could only find %d spawn points'
+                    logging.warning(msg, num_cars, number_of_spawn_points)
+                    num_cars = number_of_spawn_points
 
-            batch = []
-            for n, transform in enumerate(spawn_points):
-                # print(transform)
-                if n >= num_cars:
-                    break
-                blueprint = random.choice(blueprints) 
-                if blueprint.has_attribute('color'):
-                    color = random.choice(blueprint.get_attribute('color').recommended_values)
-                    blueprint.set_attribute('color', color)
-                if blueprint.has_attribute('driver_id'):
-                    driver_id = random.choice(blueprint.get_attribute('driver_id').recommended_values)
-                    blueprint.set_attribute('driver_id', driver_id)
-                blueprint.set_attribute('role_name', 'autopilot')
+                batch = []
+                for n, transform in enumerate(spawn_points):
+                    # print(transform)
+                    if n >= num_cars:
+                        break
+                    blueprint = random.choice(blueprints) 
+                    if blueprint.has_attribute('color'):
+                        color = random.choice(blueprint.get_attribute('color').recommended_values)
+                        blueprint.set_attribute('color', color)
+                    if blueprint.has_attribute('driver_id'):
+                        driver_id = random.choice(blueprint.get_attribute('driver_id').recommended_values)
+                        blueprint.set_attribute('driver_id', driver_id)
+                    blueprint.set_attribute('role_name', 'autopilot')
 
-                # prepare the light state of the cars to spawn
-                light_state = vls.NONE
-                if True:
-                    light_state = vls.Position | vls.LowBeam | vls.LowBeam
+                    # prepare the light state of the cars to spawn
+                    light_state = vls.NONE
+                    if True:
+                        light_state = vls.Position | vls.LowBeam | vls.LowBeam
 
-                # spawn the cars and set their autopilot and light state all together
-                batch.append(SpawnActor(blueprint, transform)
-                    .then(SetAutopilot(FutureActor, True, traffic_manager.get_port()))
-                    .then(SetVehicleLightState(FutureActor, light_state)))
-                
-                
+                    # spawn the cars and set their autopilot and light state all together
+                    batch.append(SpawnActor(blueprint, transform)
+                        .then(SetAutopilot(FutureActor, True, traffic_manager.get_port()))
+                        .then(SetVehicleLightState(FutureActor, light_state)))
+                    
+                    
 
-                for response in client.apply_batch_sync(batch, True):
-                    if response.error:
-                        logging.error(response.error)
-                    else:
-                        vehicles_list.append(response.actor_id)
-                        followed_vehicle_id = response.actor_id
-                
-        
-                # actor_location = world.get_actor(vehicles_list[0]).get_location()
-                # spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
+                    for response in client.apply_batch_sync(batch, True):
+                        if response.error:
+                            logging.error(response.error)
+                        else:
+                            vehicles_list.append(response.actor_id)
+                            followed_vehicle_id = response.actor_id
+                    
+            
+                    # actor_location = world.get_actor(vehicles_list[0]).get_location()
+                    # spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
 
-            # for i in range(num_cars):
-            #     bp = world.get_blueprint_library().filter("vehicle.*")[0]
-            #     spawn_point = random.choice(world.get_map().get_spawn_points())
-            #     print(spawn_point)
-            #     car = world.spawn_actor(bp, spawn_point)
+                # for i in range(num_cars):
+                #     bp = world.get_blueprint_library().filter("vehicle.*")[0]
+                #     spawn_point = random.choice(world.get_map().get_spawn_points())
+                #     print(spawn_point)
+                #     car = world.spawn_actor(bp, spawn_point)
 
             # Spawn pedestrians if specified
             if pedestrians == True:
@@ -236,18 +237,31 @@ def main():
                 traffic_manager.global_percentage_speed_difference(30.0)
 
                 print('spawned %d vehicles and %d walkers, press Ctrl+C to exit.' % (len(vehicles_list), len(walkers_list)))
-            while True:
-            
+            import time
+
+            t_end = time.time() + 5
+            while time.time() < t_end:
                 
-                actor_location = world.get_actor(vehicles_list[0]).get_location()
-                actor_transform = world.get_actor(vehicles_list[0]).get_transform()
-                actor_yaw = actor_transform.rotation.yaw
-                spectator.set_transform(carla.Transform(actor_location+carla.Location(  z=10, 
-                                                                                        x= - 10*math.cos(math.radians(actor_yaw)), 
-                                                                                        y= - 10*math.sin(math.radians(actor_yaw))),
-                                                                                        carla.Rotation(pitch= -30 ,yaw=actor_yaw)))
+                if len(vehicles_list) > 0: 
+                    actor_location = world.get_actor(vehicles_list[0]).get_location()
+                    actor_transform = world.get_actor(vehicles_list[0]).get_transform()
+                    actor_yaw = actor_transform.rotation.yaw
+                    spectator.set_transform(carla.Transform(actor_location+carla.Location(  z=10, 
+                                                                                            x= - 10*math.cos(math.radians(actor_yaw)), 
+                                                                                            y= - 10*math.sin(math.radians(actor_yaw))),
+                                                                                            carla.Rotation(pitch= -30 ,yaw=actor_yaw)))
+                # elif len(walkers_list) > 0:
+                #     actor_location = world.get_actor(walkers_list[0]).get_location()
+                #     actor_transform = world.get_actor(walkers_list[0]).get_transform()
+                #     actor_yaw = actor_transform.rotation.yaw
+                #     spectator.set_transform(carla.Transform(actor_location+carla.Location(  z=10, 
+                #                                                                             x= - 10*math.cos(math.radians(actor_yaw)), 
+                #                                                                             y= - 10*math.sin(math.radians(actor_yaw))),
+                #                                                                             carla.Rotation(pitch= -30 ,yaw=actor_yaw)))
+                    
                 world.wait_for_tick()
 
+    
             # Wait for the user to end the script
         finally:
 
@@ -255,7 +269,7 @@ def main():
             print('\ndestroying %d vehicles' % len(vehicles_list))
             client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 
-            # stop walker controllers (list is [controller, actor, controller, actor ...])
+            # # stop walker controllers (list is [controller, actor, controller, actor ...])
             for i in range(0, len(all_id), 2):
                 all_actors[i].stop()
 
