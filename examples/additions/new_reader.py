@@ -68,7 +68,6 @@ def main():
         # Set the weather conditions
         if weather == "Sunny":
             world.set_weather(carla.WeatherParameters.ClearNoon)
-            world.set_weather(carla.WeatherParameters(cloudiness=90.0, precipitation=100.0, sun_altitude_angle=-10.0))
         elif weather == "Rain":
             world.set_weather(carla.WeatherParameters.MidRainyNoon)
         elif weather == "Thunderstorm":
@@ -119,6 +118,8 @@ def main():
                     if blueprint.has_attribute('driver_id'):
                         driver_id = random.choice(blueprint.get_attribute('driver_id').recommended_values)
                         blueprint.set_attribute('driver_id', driver_id)
+
+                
                     blueprint.set_attribute('role_name', 'autopilot')
 
                     # prepare the light state of the cars to spawn
@@ -130,9 +131,8 @@ def main():
                     batch.append(SpawnActor(blueprint, transform)
                         .then(SetAutopilot(FutureActor, True, traffic_manager.get_port()))
                         .then(SetVehicleLightState(FutureActor, light_state)))
+                       
                     
-                    
-
                     for response in client.apply_batch_sync(batch, True):
                         if response.error:
                             logging.error(response.error)
@@ -141,26 +141,14 @@ def main():
                             followed_vehicle_id = response.actor_id
                     
             
-                    # actor_location = world.get_actor(vehicles_list[0]).get_location()
-                    # spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-60)))
-
-                # for i in range(num_cars):
-                #     bp = world.get_blueprint_library().filter("vehicle.*")[0]
-                #     spawn_point = random.choice(world.get_map().get_spawn_points())
-                #     print(spawn_point)
-                #     car = world.spawn_actor(bp, spawn_point)
-
+            
             # Spawn pedestrians if specified
             if pedestrians == True:
-                # bp = world.get_blueprint_library().filter("walker.pedestrian.*")[0]
-                # spawn_points = world.get_map().get_spawn_points()
-                # for spawn_point in spawn_points:
-                #     # if spawn_point.is_on_offroad:
-                #     pedestrian = world.spawn_actor(bp, spawn_point)
                 
                 blueprintsWalkers = world.get_blueprint_library().filter("walker.pedestrian.*")
                 percentagePedestriansRunning = 0.0      # how many pedestrians will run
                 percentagePedestriansCrossing = 0.0     # how many pedestrians will walk through the road
+                
                 # 1. take all the random locations to spawn
                 spawn_points = []
                 number_of_walkers = 20
@@ -240,9 +228,38 @@ def main():
                 traffic_manager.global_percentage_speed_difference(30.0)
 
                 print('spawned %d vehicles and %d walkers, press Ctrl+C to exit.' % (len(vehicles_list), len(walkers_list)))
+            
+            for n in range(len(vehicles_list)-1):
+
+                vehicle = world.get_actor(vehicles_list[n])
+                vehicle_physics_control = vehicle.get_physics_control()
+
+                if weather == "Rain":
+                     # Create Wheels Physics Control
+                    front_left_wheel = carla.WheelPhysicsControl(tire_friction=0.7)
+                    front_right_wheel = carla.WheelPhysicsControl(tire_friction=0.7)
+                    rear_left_wheel = carla.WheelPhysicsControl(tire_friction=0.7)
+                    rear_right_wheel = carla.WheelPhysicsControl(tire_friction=0.7)
+                    wheels = [front_left_wheel, front_right_wheel, rear_left_wheel, rear_right_wheel]
+                    vehicle_physics_control.wheels = wheels 
+                    vehicle.apply_physics_control(vehicle_physics_control)
+ 
+                    print("Changed grip to Rain")
+
+                if weather == "Thunderstorm":
+                    front_left_wheel = carla.WheelPhysicsControl(tire_friction=0.3)
+                    front_right_wheel = carla.WheelPhysicsControl(tire_friction=0.3)
+                    rear_left_wheel = carla.WheelPhysicsControl(tire_friction=0.3)
+                    rear_right_wheel = carla.WheelPhysicsControl(tire_friction=0.3)
+                    wheels = [front_left_wheel, front_right_wheel, rear_left_wheel, rear_right_wheel]
+                    vehicle_physics_control.wheels = wheels 
+                    vehicle.apply_physics_control(vehicle_physics_control)
+                    print("Changed grip Thunder")
+        
+            
             import time
 
-            t_end = time.time() + 5
+            t_end = time.time() + 15
             while time.time() < t_end:
                 
                 if len(vehicles_list) > 0: 
