@@ -15,7 +15,7 @@ client.set_timeout(10.0)
 world = client.load_world('Town03')
 
 # Start the recorder
-client.start_recorder("test.log", True)
+client.start_recorder("~/carla_0.9.10.1/PythonAPI/examples/additions/test.log", True)
 
 
 # Get the blueprint for the pedestrian and set its attributes
