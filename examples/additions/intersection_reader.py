@@ -14,6 +14,12 @@ client.set_timeout(10.0)
 # Load the scenario
 world = client.load_world('Town03')
 
+
+# Create a recorder and start it
+recorder = world.get_recorder()
+recorder.start()   
+
+
 def main():
 
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
@@ -232,7 +238,8 @@ def main():
                     vehicle.apply_physics_control(vehicle_physics_control)
                     print("Changed grip Thunder")
         
-            import time
+
+
 
             t_end = time.time() + 100
             while time.time() < t_end:
@@ -268,7 +275,15 @@ def main():
                 cybertruck.apply_control(cybertruck_agent.run_step())
               
                     
-                # world.wait_for_tick()
+                 # Get the vehicle's current location and throttle
+                vehicle_location = cybertruck.get_location()
+                vehicle_throttle = vehicle.get_control().throttle
+
+                # Print the vehicle's location and throttle
+                print(f'Time: {i}, Location: {vehicle_location}, Throttle: {vehicle_throttle}')
+
+                # Wait for one second
+                world.wait_for_tick()
 
     
             # Wait for the user to end the script
@@ -284,6 +299,11 @@ def main():
 
             print('\ndestroying %d walkers' % len(walkers_list))
             client.apply_batch([carla.command.DestroyActor(x) for x in all_id])
+            
+            recorder.stop()
+            recorder_name = recorder.get_name()
+            recorder_data = recorder.get_data()
+            recorder.save_to_disk(f'{recorder_name}.log')
 
             time.sleep(0.5)
 

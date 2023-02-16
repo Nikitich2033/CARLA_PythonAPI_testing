@@ -9,8 +9,13 @@ import math
 client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)
 
+
+
 # Load the scenario
 world = client.load_world('Town03')
+
+# Start the recorder
+client.start_recorder("test.log", True)
 
 
 # Get the blueprint for the pedestrian and set its attributes
@@ -165,6 +170,7 @@ while True:
 
       # # Print the number of destroyed actors
       # print(f"Destroyed {num_destroyed} actors.")
+      client.stop_recorder()
       
       break
 
