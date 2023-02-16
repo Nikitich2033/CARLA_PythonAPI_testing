@@ -1,6 +1,7 @@
 import carla
 import time 
 from agents.navigation.basic_agent import BasicAgent
+from agents.navigation.behavior_agent import BehaviorAgent
 from agents.navigation.controller import VehiclePIDController
 import math
 
@@ -11,19 +12,30 @@ client.set_timeout(10.0)
 # Load the scenario
 world = client.load_world('Town03')
 
+
+# Get the blueprint for the pedestrian and set its attributes
+blueprint_library = world.get_blueprint_library()
+pedestrian_bp = blueprint_library.find('walker.pedestrian.0001')
+pedestrian_bp.set_attribute('is_invincible', 'false')
+pedestrian_bp.set_attribute('speed', '20.0')
+
+pedestrian = world.spawn_actor(pedestrian_bp, carla.Transform(carla.Location(x=10, y=134, z=3.5),carla.Rotation(yaw=180)))
+pedestrian_control = carla.WalkerControl()
+pedestrian_control.speed = 20
+pedestrian_control.direction = carla.Vector3D(x=-1.0, y=0.0, z=0.0)
+pedestrian.apply_control(pedestrian_control)
+
+
 # # Get the blueprint for a Cybertruck
 cybertruck_bp = world.get_blueprint_library().find('vehicle.tesla.cybertruck')
 
-# # Set the starting location and orientation for the Cybertruck
-start_transform = carla.Transform(carla.Location(x=150, y=-100, z=8.5), carla.Rotation(yaw=0))
 
-
-# # Spawn the Cybertruck at the specified location and orientation
-cybertruck = world.spawn_actor(cybertruck_bp, start_transform)
-
-bad_actor_bp = world.get_blueprint_library().find('vehicle.tesla.model3')
-bad_transform = carla.Transform(carla.Location(x= 21, y=130, z=8.5), carla.Rotation(yaw=180))
+bad_actor_bp = world.get_blueprint_library().find('vehicle.audi.etron')
+bad_transform = carla.Transform(carla.Location(x= 13, y=130, z=3.5), carla.Rotation(yaw=180))
 bad_car = world.spawn_actor(bad_actor_bp, bad_transform)
+
+
+
 
 # vehicle_physics_control = cybertruck.get_physics_control()
 # front_left_wheel = carla.WheelPhysicsControl(tire_friction=0.3)
@@ -84,25 +96,6 @@ actor_location = actor.get_location()
 # Set the camera to look at the actor
 spectator.set_transform(carla.Transform(actor_location+carla.Location(z=40), carla.Rotation(pitch=-90)))
 
-custom_controller = VehiclePIDController(vehicle, args_lateral = {'K_P': 1, 'K_D': 0.0, 'K_I': 0}, args_longitudinal = {'K_P': 1, 'K_D': 0.0, 'K_I': 0.0})
-
-filtered_waypoints = []
-for waypoint in waypoints:
-    if(waypoint.road_id == 24):
-      filtered_waypoints.append(waypoint)
-
-target_waypoint = filtered_waypoints[20]
-
-client.get_world().debug.draw_string(target_waypoint.transform.location, 'O', draw_shadow=False,
-                           color=carla.Color(r=255, g=0, b=0), life_time=20,
-                           persistent_lines=True)
-
-ticks_to_track = 20
-for i in range(ticks_to_track):
-
-  control_signal = custom_controller.run_step(20, target_waypoint)
-  bad_car.apply_control(control_signal)
-
 target_road_waypoints = []
 for waypoint in waypoints:
     if(waypoint.road_id == 30):
@@ -110,13 +103,13 @@ for waypoint in waypoints:
 
 target_waypoint = target_road_waypoints[len(target_road_waypoints)-1].transform
 
-# agent.set_destination([target_waypoint.location.x, 
-#                        target_waypoint.location.y, 
-#                        target_waypoint.location.z])
+agent.set_destination([target_waypoint.location.x, 
+                       target_waypoint.location.y, 
+                       target_waypoint.location.z])
 
 client.get_world().debug.draw_string(target_waypoint.location, 
                                         'O', draw_shadow=False,
-                                        color=carla.Color(r=255, g=0, b=0), life_time=20,
+                                        color=carla.Color(r=255, g=0, b=0), life_time=0,
                                         persistent_lines=True)
 
 
@@ -130,12 +123,53 @@ while True:
                                                                             x= - 10*math.cos(math.radians(actor_yaw)), 
                                                                             y= - 10*math.sin(math.radians(actor_yaw))),
                                                                             carla.Rotation(pitch= -30 ,yaw=actor_yaw)))
+    
+    distance = actor_location.distance(bad_car.get_location())
+    print(f"The distance between actor 1 and actor 2 is {distance:.2f} meters.")
+    if distance < 35:
+      # custom_controller = VehiclePIDController(bad_car,throttle=1, args_lateral = {'K_P': 1, 'K_D': 0.0, 'K_I': 0.0}, args_longitudinal = {'K_P': 50, 'K_D': 40.0, 'K_I': 40.0,})
+      
+      # filtered_waypoints = []
+      # for waypoint in waypoints:
+      #     if(waypoint.road_id == 24):
+      #       filtered_waypoints.append(waypoint)
+
+      # target_waypoint = filtered_waypoints[20]
+
+      # client.get_world().debug.draw_string(target_waypoint.transform.location, 'O', draw_shadow=False,
+      #                           color=carla.Color(r=255, g=0, b=0), life_time=20,
+      #                           persistent_lines=True)
+
+      # ticks_to_track = 20
+      # for i in range(ticks_to_track):
+
+      # control_signal = custom_controller.run_step(20, target_waypoint)
+
+      # bad_car.set_velocity(50)
+      # bad_car.apply_control(control_signal)
+
+      bad_control = carla.VehicleControl()
+      throttle = 1.0
+      control = carla.VehicleControl(throttle=throttle)
+      bad_car.apply_control(control)
+
     if agent.done():
-        print("The target has been reached, stopping the simulation")
-        break
+      print("The target has been reached, stopping the simulation")
+      # actors = world.get_actors()
+
+      # # Destroy all actors in the world and count the number of destroyed actors
+      # num_destroyed = 0
+      # for actor in actors:
+      #     actor.destroy()
+      #     num_destroyed += 1
+
+      # # Print the number of destroyed actors
+      # print(f"Destroyed {num_destroyed} actors.")
+      
+      break
 
     vehicle.apply_control(agent.run_step())
-    bad_car.apply_control(control_signal)
+   
 
 	
     
