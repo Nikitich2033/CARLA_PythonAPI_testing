@@ -272,7 +272,7 @@ def main():
                 with open(file_path, 'w') as f:
                     json.dump(data, f,indent=4)
 
-            t_end = time.time() + 100
+            t_end = time.time() + 60
             info_time = world.get_snapshot().timestamp.elapsed_seconds
             while time.time() < t_end:
                 actor = cybertruck

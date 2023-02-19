@@ -14,7 +14,7 @@ client.set_timeout(10.0)
 # 3 big with elevation
 # 4 massive highway
 # 5 urban city with highway
-world = client.load_world('Town03')
+world = client.load_world('Town07')
 
 
 
@@ -52,7 +52,7 @@ def draw_all_spawnpoints():
     
 waypoints = client.get_world().get_map().generate_waypoints(distance=5.0)
 
-# draw_all_waypoints(waypoints)
+draw_all_waypoints(waypoints)
 draw_all_spawnpoints()
 
 
