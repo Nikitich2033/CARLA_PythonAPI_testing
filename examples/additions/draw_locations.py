@@ -9,7 +9,14 @@ client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)
 
 # Load the scenario
+# 1 autoware
+# 2 small town
+# 3 big with elevation
+# 4 massive highway
+# 5 urban city with highway
 world = client.load_world('Town03')
+
+
 
 map = world.get_map()
 
@@ -37,9 +44,16 @@ def draw_all_waypoints(waypoints, life_time=150.0):
                                    color=carla.Color(r=0, g=0, b=0), life_time=150,
                                    persistent_lines=False,
                                    )
+def draw_all_spawnpoints():
+  spawn_points = world.get_map().get_spawn_points()
+  for spawn_point in spawn_points:
+    world.debug.draw_point(spawn_point.location, size=0.2, color=carla.Color(0, 255, 0), life_time=0.0)
 
+    
 waypoints = client.get_world().get_map().generate_waypoints(distance=5.0)
-draw_all_waypoints(waypoints)
+
+# draw_all_waypoints(waypoints)
+draw_all_spawnpoints()
 
 
 

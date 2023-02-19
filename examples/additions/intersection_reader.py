@@ -1,4 +1,5 @@
 import json
+import os
 from carla import VehicleLightState as vls
 import logging 
 import time
@@ -11,13 +12,12 @@ from carla import WeatherParameters
 client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)
 
-# Load the scenario
-world = client.load_world('Town03')
-
 
 # Create a recorder and start it
-recorder = world.get_recorder()
-recorder.start()   
+client.start_recorder("~/carla_0.9.10.1/PythonAPI/examples/additions/test.log", True)
+
+# Load the scenario
+world = client.load_world('Town03')
 
 
 def main():
@@ -28,10 +28,9 @@ def main():
         scenario_data = json.load(file)
 
     # Initialize variables with the values from the JSON file
-   
+
     for scenario_num in range(len(scenario_data)):
         print("new scenario: "+ str(scenario_num))
-        num_scenarios = scenario_data[scenario_num]["num_scenarios"]
         weather = scenario_data[scenario_num]["weather"]
         intersection = scenario_data[scenario_num]["intersection"]
         num_cars = scenario_data[scenario_num]["num_cars"]
@@ -46,7 +45,7 @@ def main():
         pedestrian_cross = scenario_data[scenario_num]["pedestrian_cross"]
 
         # Print the values of the variables
-        print("Number of scenarios: ", num_scenarios)
+  
         print("Weather: ", weather)
         print("Intersection: ", intersection)
         print("Number of cars: ", num_cars)
@@ -239,9 +238,42 @@ def main():
                     print("Changed grip Thunder")
         
 
-
+            def print_vehicle_info(vehicle):
+                print("Game time: ", world.get_snapshot().timestamp.elapsed_seconds)
+                print("Vehicle location: ", vehicle.get_location())
+                print("Vehicle velocity: ", vehicle.get_velocity())
+                print("Vehicle throttle: ", vehicle.get_control().throttle)
+            
+            def save_vehicle_info(scenario_num, vehicle, folder):
+                
+               
+                file_path = f'{folder}/scenario_{scenario_num}.json'
+                
+                # Check if file exists, create it if it doesn't
+                if not os.path.exists(file_path):
+                    with open(file_path, 'w') as f:
+                        json.dump([], f)
+                
+                # Load existing data from file
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                
+                # Add new data
+                new_data = {
+                    'game_time': world.get_snapshot().timestamp.elapsed_seconds,
+                    'vehicle_location': {'x': vehicle.get_location().x, 'y': vehicle.get_location().y, 'z': vehicle.get_location().z},
+                    'vehicle_velocity': {'x': vehicle.get_velocity().x, 'y': vehicle.get_velocity().y, 'z': vehicle.get_velocity().z},
+                    'vehicle_throttle': vehicle.get_control().throttle
+                }
+                
+                data.append(new_data)
+    
+                # Save data to file
+                with open(file_path, 'w') as f:
+                    json.dump(data, f,indent=4)
 
             t_end = time.time() + 100
+            info_time = world.get_snapshot().timestamp.elapsed_seconds
             while time.time() < t_end:
                 actor = cybertruck
                 actor_location = actor.get_location()
@@ -262,6 +294,7 @@ def main():
                         # world.hud.notification("Traffic light changed! Good to go!")
                         traffic_light.set_state(carla.TrafficLightState.Green)
 
+               
                 if distance < 35:
             
                     throttle = 1.0
@@ -275,15 +308,15 @@ def main():
                 cybertruck.apply_control(cybertruck_agent.run_step())
               
                     
-                 # Get the vehicle's current location and throttle
-                vehicle_location = cybertruck.get_location()
-                vehicle_throttle = vehicle.get_control().throttle
-
-                # Print the vehicle's location and throttle
-                print(f'Time: {i}, Location: {vehicle_location}, Throttle: {vehicle_throttle}')
 
                 # Wait for one second
-                world.wait_for_tick()
+                if world.get_snapshot().timestamp.elapsed_seconds - info_time >= 1:
+                    file_path = 'user_input'
+                    save_vehicle_info(scenario_num, cybertruck, file_path)
+                    print_vehicle_info(cybertruck)
+                    info_time = world.get_snapshot().timestamp.elapsed_seconds
+                # print(time.time())
+                # world.tick()
 
     
             # Wait for the user to end the script
@@ -300,12 +333,10 @@ def main():
             print('\ndestroying %d walkers' % len(walkers_list))
             client.apply_batch([carla.command.DestroyActor(x) for x in all_id])
             
-            recorder.stop()
-            recorder_name = recorder.get_name()
-            recorder_data = recorder.get_data()
-            recorder.save_to_disk(f'{recorder_name}.log')
+            client.stop_recorder()
 
             time.sleep(0.5)
+            client.load_world('Town03')
 
 if __name__ == '__main__':
 

@@ -43,7 +43,7 @@ class ScenarioGenerator:
         return generated_scenarios
 
 weather = ['Sunny', 'Rain', 'Thunderstorm']
-road = ['Highway', 'City']
+road = ['Highway', 'City', 'Country']
 vehicle = ['Car', 'Truck']
 traffic = ['Heavy', 'Light']
 emergency = ['Yes', 'No']

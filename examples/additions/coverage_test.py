@@ -55,59 +55,62 @@ num_scenarios = 100
 scenario_generator = ScenarioGenerator(weather, road, vehicle, traffic, emergency, time, location, num_cars, intersection, pedestrian_cross, num_scenarios)
 scenarios = scenario_generator.generate_scenarios()
 
-# from pymoo.core.problem import Problem 
-# from pymoo.core.sampling import Sampling
+from pymoo.core.problem import Problem 
+from pymoo.core.sampling import Sampling
 
-# class ScenarioEvaluator(Problem):
+class ScenarioEvaluator(Problem):
 
-#     def init(self, scenarios):
-#         super().init(n_var=7, n_obj=1, n_constr=0, xl=0, xu=1, type_var=pymoo.types.CATEGORICAL)
-#         self.scenarios = scenarios
+    def init(self, scenarios):
+        super().init(n_var=7, n_obj=1, n_constr=0, xl=0, xu=1, type_var=pymoo.types.CATEGORICAL)
+        self.scenarios = scenarios
 
-#     def _evaluate(self, x, out, *args, **kwargs):
-#         scenario = self.scenarios[int(x[0])]
-#         weather_coverage = x[1]
-#         road_coverage = x[2]
-#         vehicle_coverage = x[3]
-#         traffic_coverage = x[4]
-#         emergency_coverage = x[5]
-#         time_coverage = x[6]
-#         location_coverage = x[7]
+    def _evaluate(self, x, out, *args, **kwargs):
+        scenario = self.scenarios[int(x[0])]
+        weather_coverage = x[1]
+        road_coverage = x[2]
+        vehicle_coverage = x[3]
+        traffic_coverage = x[4]
+        emergency_coverage = x[5]
+        time_coverage = x[6]
+        location_coverage = x[7]
 
-#         # Calculate diversity and coverage score for each variable
-#         weather_score = 1 if scenario['weather'] == 'Sunny' else 0
-#         road_score = 1 if scenario['road'] == 'Highway' else 0
-#         vehicle_score = 1 if scenario['vehicle'] == 'Car' else 0
-#         traffic_score = 1 if scenario['traffic'] == 'Heavy' else 0
-#         emergency_score = 1 if scenario['emergency'] == 'Yes' else 0
-#         time_score = 1 if scenario['time'] == 'Day' else 0
-#         location_score = 1 if scenario['location'] == 'Urban' else 0
+        # Calculate diversity and coverage score for each variable
+        weather_score = 1 if scenario['weather'] == 'Sunny' else 0
+        road_score = 1 if scenario['road'] == 'Highway' else 0
+        vehicle_score = 1 if scenario['vehicle'] == 'Car' else 0
+        traffic_score = 1 if scenario['traffic'] == 'Heavy' else 0
+        emergency_score = 1 if scenario['emergency'] == 'Yes' else 0
+        time_score = 1 if scenario['time'] == 'Day' else 0
+        location_score = 1 if scenario['location'] == 'Urban' else 0
 
-#          # Calculate overall diversity and coverage score
-#         diversity_score = weather_coverage * weather_score + road_coverage * road_score + \
-#                       vehicle_coverage * vehicle_score + traffic_coverage * traffic_score + \
-#                       emergency_coverage * emergency_score + time_coverage * time_score + \
-#                       location_coverage * location_score
+         # Calculate overall diversity and coverage score
+        diversity_score = weather_coverage * weather_score + road_coverage * road_score + \
+                      vehicle_coverage * vehicle_score + traffic_coverage * traffic_score + \
+                      emergency_coverage * emergency_score + time_coverage * time_score + \
+                      location_coverage * location_score
         
-#         out["F"] = diversity_score
+        print("Diversity score: "+  diversity_score)
 
-# scenario_evaluator = ScenarioEvaluator(len(scenarios))
-# # sampling = Sampling.do("random")
-# from pymoo.util import plotting
-# from pymoo.operators.sampling.rnd import FloatRandomSampling
+        out["F"] = diversity_score
+        
 
-# # initial_solutions = Sampling.do(scenario_evaluator, 100)
+scenario_evaluator = ScenarioEvaluator(len(scenarios))
+# sampling = Sampling.do("random")
+from pymoo.util import plotting
+from pymoo.operators.sampling.rnd import FloatRandomSampling
 
-# problem = scenario_evaluator
+# initial_solutions = Sampling.do(scenario_evaluator, 100,100)
 
-# sampling = FloatRandomSampling()
+problem = scenario_evaluator
 
-# X = sampling(scenario_evaluator, 200).get("X")
-# plotting.plot(X, no_fill=True)
+sampling = FloatRandomSampling()
 
-# from pymoo.algorithms.nsga2 import NSGA2
+X = sampling(scenario_evaluator, 200).get("X")
+plotting.plot(X, no_fill=True)
 
-# algorithm = NSGA2(pop_size=100)
-# result = algorithm.solve(scenario_evaluator, termination=("n_gen", 200))
+from pymoo.algorithms.moo.nsga2 import NSGA2
+
+algorithm = NSGA2(pop_size=100)
+result = algorithm.solve(scenario_evaluator, termination=("n_gen", 200))
 
 # print(result)
