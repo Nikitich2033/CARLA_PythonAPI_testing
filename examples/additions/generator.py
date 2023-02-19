@@ -58,3 +58,4 @@ num_scenarios = 100
 
 scenario_generator = ScenarioGenerator(weather, road, vehicle, traffic, emergency, timeOfDay, location, num_cars, intersection, pedestrians, pedestrian_cross, num_scenarios)
 scenarios = scenario_generator.generate_scenarios()
+
